@@ -38,7 +38,7 @@ include_directories(
   ${xsens_INCLUDE_DIRS}
 )
 add_custom_target(
-   xcommunication_LIBRARY
+    
    COMMAND make
    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/lib/
 )

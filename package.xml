@@ -1,5 +1,5 @@
 <package>
-  <name>xsens_node</name>
+  <name>xsens_bridge</name>
   <version>0.0.1</version>
   <description>
     For XSENS IMU. 

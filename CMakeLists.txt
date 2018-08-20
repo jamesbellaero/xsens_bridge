@@ -44,7 +44,7 @@ add_custom_target(
 )
 
 add_executable(xsens_node
-               src/xsens_node.cpp
+               src/xsens_bridge.cpp
                src/deviceclass.cpp)
 #Should probably make a list for these and just loop over itd
 set(EXEC_LIST xsens_node)

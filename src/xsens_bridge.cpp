@@ -28,6 +28,7 @@ Make networking port configurable from an external file
 #include <iomanip>
 #include <stdexcept>
 #include <string>
+#include <cstring>
 #include <cstdint>
 #include <netinet/in.h>
 #include <arpa/inet.h>
@@ -117,9 +118,11 @@ int main(int argc, char** argv){
   XsByteArray data;
   XsMessageArray msgs;
 
-  string robotName;
-	ros::NodeHandle nh;
-	nh.getParam("RobotName", robotName);
+  std::string robotNameStr;
+  ros::NodeHandle nh;
+  nh.getParam("RobotName", robotNameStr);
+  char robotName[robotNameStr.size() + 1];
+  strcpy(robotName,robotNameStr.c_str());
   ros::init(argc,argv,strcat(robotName,"/imu"));
   pub=nh.advertise<xsens_bridge::Imu>(strcat(robotName,"/imu"),1000);
   ros::Rate loop_rate(rate);
@@ -139,8 +142,8 @@ int main(int argc, char** argv){
       // Get the packet data
       //int sampleTime = packet.sampleTimeFine();
       double sampleTime = ts.msTime()/1000.0;
-      toPub.timeStamp = sampleTime;
       xsens_bridge::Imu toPub;
+      toPub.timeStamp = sampleTime;
       if(quat){
         XsSdiData sdi = packet.sdiData();
         XsVector3 acc = sdi.velocityIncrement();

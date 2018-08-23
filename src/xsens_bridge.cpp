@@ -119,11 +119,12 @@ int main(int argc, char** argv){
   XsMessageArray msgs;
 
   std::string robotNameStr;
+  ros::init(argc,argv,"xsens_imu");
   ros::NodeHandle nh;
   nh.getParam("RobotName", robotNameStr);
   char robotName[robotNameStr.size() + 1];
   strcpy(robotName,robotNameStr.c_str());
-  ros::init(argc,argv,strcat(robotName,"/imu"));
+  
   pub=nh.advertise<xsens_bridge::Imu>(strcat(robotName,"/imu"),1000);
   ros::Rate loop_rate(rate);
 
